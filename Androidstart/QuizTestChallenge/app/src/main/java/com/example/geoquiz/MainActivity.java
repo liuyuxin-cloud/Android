@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
         mTrueButton.setOnClickListener (new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Toast toast = Toast.makeText(getApplicationContext(),"Correct",Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP|50, 0);
+                Toast.makeText(MainActivity.this,R.string.correct_toast,Toast.LENGTH_SHORT).show();
+
             }
         });
         mFalseButton = (Button) findViewById (R.id.false_button);

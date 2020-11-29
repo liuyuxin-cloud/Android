@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate(Bundle) called");
         setContentView(R.layout.activity_main);
-        if(savedInstanceState != null){
+        if(savedInstanceState != null){                              //设置暂存区
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX,0);
         }
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void prevQuestion() {
-        int question = mQuestionBank[mCurrentIndex].getTestResId();         //设置问题引用问题数组的id
+        int question = mQuestionBank[mCurrentIndex].getTestResId();//设置问题引用问题数组的id
         mQuestionTextView.setText(question);
     }
 

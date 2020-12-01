@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private int mCurrentIndex = 0;
     private static final String TAG = "MainActivity";
     private static final String KEY_INDEX = "index";                //新增敞亮用来存储在bundle中键-值对中的键
+    private static String KEY_ANSWER="KEY_ANSWER";
     private Question[] mQuestionBank = new Question[]{              //设置数组用来存放问题
             new Question(R.string.question_australia,true),
             new Question(R.string.question_oceans,true),
@@ -33,8 +34,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"onCreate(Bundle) called");
         setContentView(R.layout.activity_main);
-        if(savedInstanceState != null){                              //设置暂存区
-            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX,0);
+        if(savedInstanceState != null) {                              //设置暂存区
+            mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+            int[] answerList = savedInstanceState.getIntArray(KEY_ANSWER);
+            for (int i = 0; i < mQuestionBank.length; i++) {
+                mQuestionBank[i].setIsAnswered(answerList[i]);//将答题情况存储在question中
+            }
         }
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);    //将设置的文本框内容与资源相连
@@ -51,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 checkAnswer(true);
+                mTrueButton.setClickable(false);
             }
         });
         mFalseButton = (Button) findViewById (R.id.false_button);
@@ -58,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 checkAnswer(false);
+                mFalseButton.setClickable(false);
+
             }
         });
         mPrevButton = (Button) findViewById (R.id.prev_button);
@@ -99,6 +107,11 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG,"onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX,mCurrentIndex);
+        int[] answerList=new int[mQuestionBank.length];//存储是否已经答过该题的情况
+        for(int i=0;i<answerList.length;i++){
+            answerList[i]=mQuestionBank[i].getIsAnswered();
+            }
+        savedInstanceState.putIntArray(KEY_ANSWER,answerList);
         }
     @Override
     public void onStop() {
@@ -119,18 +132,31 @@ public class MainActivity extends AppCompatActivity {
     private void updateQuestion(){
         int question = mQuestionBank[mCurrentIndex].getTestResId();         //设置问题引用问题数组的id
         mQuestionTextView.setText(question);
-     }
-     private void checkAnswer( boolean userPressedTrue ) {                 //检查答案
-        boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+        ButtonEnabled();
+    }
 
-         int messageResId = 0;
-         if (userPressedTrue == answerIsTrue){
+    private void checkAnswer( boolean userPressedTrue ) {                 //检查答案
+        boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+        mQuestionBank[mCurrentIndex].setIsAnswered(1);
+
+        int messageResId = 0;
+        if (userPressedTrue == answerIsTrue){
             messageResId = R.string.correct_toast;
         }
         else{
             messageResId = R.string.incorrect_toast;
         }
         Toast.makeText(this,messageResId,Toast.LENGTH_SHORT).show();
+        ButtonEnabled();
 
-     }
+    }
+    public void ButtonEnabled(){
+        if(mQuestionBank[mCurrentIndex].getIsAnswered()>0){
+            mTrueButton.setEnabled(false);
+            mTrueButton.setEnabled(false);
+        }else{
+            mTrueButton.setEnabled(true);
+            mFalseButton.setEnabled(true);
+        }
+    }
 }

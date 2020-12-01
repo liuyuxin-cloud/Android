@@ -9,7 +9,12 @@ public class Question {
             mTestResId = textResId;
             mAnswerTrue = answerTrue;
         }
-
+        public void setIsAnswered(int isAnswer){
+            this.isAnswer = isAnswer;
+        }
+        public int getIsAnswered(){
+            return isAnswer;
+        }
         public void setTestResId(int testResId) {
             mTestResId = testResId;
         }

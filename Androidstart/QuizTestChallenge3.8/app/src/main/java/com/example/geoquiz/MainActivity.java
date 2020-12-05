@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mPrevButton;
     private TextView mQuestionTextView;
     private int mCurrentIndex = 0;
+    private int score = 0;
     private static final String TAG = "MainActivity";
     private static final String KEY_INDEX = "index";                //新增敞亮用来存储在bundle中键-值对中的键
     private static String KEY_ANSWER="KEY_ANSWER";
@@ -54,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
                 checkAnswer(true);
                 mTrueButton.setClickable(false);
                 mFalseButton.setClickable(false);
+                if(( mCurrentIndex + 1 ) % mQuestionBank.length == 0){
+                    double total = (double) score / mQuestionBank.length;
+                    String s = String.valueOf(total) + "%";
+                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
+                    score = 0;
+                }
             }
         });
         mFalseButton = (Button) findViewById (R.id.false_button);
@@ -139,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         int messageResId = 0;
         if (userPressedTrue == answerIsTrue){
             messageResId = R.string.correct_toast;
+            score++;
         }
         else{
             messageResId = R.string.incorrect_toast;

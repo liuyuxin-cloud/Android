@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
                 for( Question i : mQuestionBank ){
                     if( i.getIsAnswered() == 0)
                         break;
-                    double score = (double) correct / mQuestionBank.length * 100 ;
-                    String s = String.valueOf(score);
-                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT);
+                    double score = (double) correct * 100 / mQuestionBank.length ;
+                    String s = String.valueOf(score) + "%";
+                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -78,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
                 for( Question i : mQuestionBank ){
                     if( i.getIsAnswered() == 0)
                         break;
-                    double score = (double) correct / mQuestionBank.length * 100 ;
+                    double score = (double) correct * 100 / mQuestionBank.length ;
                     String s = String.valueOf(score) + "%";
-                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT);
+                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
                 }
             }
         });

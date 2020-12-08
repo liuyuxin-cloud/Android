@@ -91,12 +91,9 @@ public class MainActivity extends AppCompatActivity {
                 if(mCurrentIndex != 0)
                     mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
                 prevQuestion();
-                for( Question i : mQuestionBank ){
-                    if( i.getIsAnswered() == 0)
-                        break;
-                    double score = (double) correct / mQuestionBank.length * 100 ;
-                    String s = String.valueOf(score);
-                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT);
+                if (mQuestionBank[mCurrentIndex % mQuestionBank.length].getIsAnswered() == 0 ){
+                    mTrueButton.setClickable(true);
+                    mFalseButton.setClickable(true);
                 }
             }
         });
@@ -111,9 +108,6 @@ public class MainActivity extends AppCompatActivity {
                     mTrueButton.setClickable(true);
                     mFalseButton.setClickable(true);
                 }
-
-
-
             }
         });
         updateQuestion();

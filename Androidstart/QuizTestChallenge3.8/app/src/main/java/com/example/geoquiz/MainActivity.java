@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,9 +17,9 @@ public class MainActivity extends AppCompatActivity {
     private Button mPrevButton;
     private TextView mQuestionTextView;
     private int mCurrentIndex = 0;
-    private int score = 0;
+    private int correct = 0;
     private static final String TAG = "MainActivity";
-    private static final String KEY_INDEX = "index";                //新增敞亮用来存储在bundle中键-值对中的键
+    private static final String KEY_INDEX = "index";                //新增常量用来存储在bundle中键-值对中的键
     private static String KEY_ANSWER="KEY_ANSWER";
     private Question[] mQuestionBank = new Question[]{              //设置数组用来存放问题
             new Question(R.string.question_australia,true),
@@ -54,13 +53,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 checkAnswer(true);
-                mTrueButton.setClickable(false);
-                mFalseButton.setClickable(false);
-                if(( mCurrentIndex + 1 ) % mQuestionBank.length == 0){
-                    double total = (double) score / mQuestionBank.length;
-                    String s = String.valueOf(total) + "%";
-                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
-                    score = 0;
+                if ( mQuestionBank[mCurrentIndex % mQuestionBank.length].getIsAnswered() > 0 ) {
+                    mTrueButton.setClickable(false);
+                    mFalseButton.setClickable(false);
+                }
+                for( Question i : mQuestionBank ){
+                    if( i.getIsAnswered() == 0)
+                        break;
+                    double score = (double) correct / mQuestionBank.length * 100 ;
+                    String s = String.valueOf(score);
+                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT);
                 }
             }
         });
@@ -69,19 +71,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 checkAnswer(false);
-                mFalseButton.setClickable(false);
-                mTrueButton.setClickable(false);
-
+                if ( mQuestionBank[mCurrentIndex % mQuestionBank.length].getIsAnswered() > 0 ) {
+                    mTrueButton.setClickable(false);
+                    mFalseButton.setClickable(false);
+                }
+                for( Question i : mQuestionBank ){
+                    if( i.getIsAnswered() == 0)
+                        break;
+                    double score = (double) correct / mQuestionBank.length * 100 ;
+                    String s = String.valueOf(score) + "%";
+                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT);
+                }
             }
         });
         mPrevButton = (Button) findViewById (R.id.prev_button);
         mPrevButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
+                if(mCurrentIndex != 0)
+                    mCurrentIndex = (mCurrentIndex - 1) % mQuestionBank.length;
                 prevQuestion();
-                mTrueButton.setClickable(true);
-                mFalseButton.setClickable(true);
+                for( Question i : mQuestionBank ){
+                    if( i.getIsAnswered() == 0)
+                        break;
+                    double score = (double) correct / mQuestionBank.length * 100 ;
+                    String s = String.valueOf(score);
+                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT);
+                }
             }
         });
 
@@ -91,8 +107,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 updateQuestion();
-                mTrueButton.setClickable(true);
-                mFalseButton.setClickable(true);
+                if (mQuestionBank[mCurrentIndex % mQuestionBank.length].getIsAnswered() == 0 ){
+                    mTrueButton.setClickable(true);
+                    mFalseButton.setClickable(true);
+                }
+
+
+
             }
         });
         updateQuestion();
@@ -142,12 +163,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkAnswer( boolean userPressedTrue ) {                 //检查答案
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
-        mQuestionBank[mCurrentIndex].setIsAnswered(1);
+        mQuestionBank[mCurrentIndex % mQuestionBank.length].setIsAnswered(1);
 
         int messageResId = 0;
         if (userPressedTrue == answerIsTrue){
             messageResId = R.string.correct_toast;
-            score++;
+            correct++;
         }
         else{
             messageResId = R.string.incorrect_toast;

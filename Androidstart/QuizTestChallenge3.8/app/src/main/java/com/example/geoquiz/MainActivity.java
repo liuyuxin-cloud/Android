@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mQuestionTextView;
     private int mCurrentIndex = 0;
     private int correct = 0;
+    private int ifShowToast;
     private static final String TAG = "MainActivity";
     private static final String KEY_INDEX = "index";                //新增常量用来存储在bundle中键-值对中的键
     private static String KEY_ANSWER="KEY_ANSWER";
@@ -58,11 +59,13 @@ public class MainActivity extends AppCompatActivity {
                     mFalseButton.setClickable(false);
                 }
                 for( Question i : mQuestionBank ){
-                    if( i.getIsAnswered() == 0)
+                    if( i.getIsAnswered() == 0 || i.getTestResId() != R.string.question_asia )
                         break;
+                        ifShowToast = 1;
+                }
+                if(ifShowToast == 1){
                     double score = (double) correct * 100 / mQuestionBank.length ;
                     String s = String.valueOf(score) + "%";
-                    Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -75,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
                     mTrueButton.setClickable(false);
                     mFalseButton.setClickable(false);
                 }
-                for( Question i : mQuestionBank ){
-                    if( i.getIsAnswered() == 0)
-                        break;
+                 for( Question i : mQuestionBank ){
+                    if( i.getIsAnswered() == 0 || i.getTestResId() != R.string.question_asia)
+                        continue;
                     double score = (double) correct * 100 / mQuestionBank.length ;
                     String s = String.valueOf(score) + "%";
                     Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();

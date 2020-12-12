@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mQuestionTextView;
     private int mCurrentIndex = 0;
     private boolean mIsCheater;
+    private String KEY_MISCHEATER = "key_mIsCheater";
     private static final String TAG = "MainActivity";
     private static final String KEY_INDEX = "index";                //新增敞亮用来存储在bundle中键-值对中的键
     private static final int REQUEST_CODE_CHEAT = 0;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState != null) {                              //设置暂存区
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
+            mIsCheater = savedInstanceState.getBoolean(KEY_MISCHEATER,false);
         }
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);    //将设置的文本框内容与资源相连
@@ -133,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        savedInstanceState.putBoolean(KEY_MISCHEATER,mIsCheater);
     }
 
     @Override

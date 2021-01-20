@@ -4,8 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
+
 
 import java.util.List;
 
@@ -16,15 +17,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {//用来显示github用户的开源仓库名称
-    private TextView mTextView;
     private static final String TAG = "tag" ;
     public List<GitHubRepo> repo;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mTextView = (TextView) findViewById(R.id.list_view);
+        setContentView(R.layout.listview);
+        listView = (ListView)findViewById(R.id.listView);
+
         new Thread() {
             @Override
             public void run() {
@@ -41,9 +43,13 @@ public class MainActivity extends AppCompatActivity {//用来显示github用户�
 
                     @Override
                     public void onResponse(Call<List<GitHubRepo>> call, Response<List<GitHubRepo>> response) {
-                        repo = response.body();
-                        Log.d(TAG, "123");
-
+                        List<GitHubRepo> repos = response.body();
+                        try{
+                        listView.setAdapter(new GitHubRepoAdapter(MainActivity.this,android.R.layout.simple_list_item_1,repos));
+                        }
+                        catch (RuntimeException e) {
+                            Log.d(TAG,"problem");
+                        };
                         Toast.makeText(MainActivity.this, "succeed", Toast.LENGTH_SHORT).show();
 
 

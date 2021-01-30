@@ -10,7 +10,10 @@ public class Crime {                         //设置所有事项的共有属性
     private boolean mSolved;
 
     public Crime() {
-        mId = UUID.randomUUID();
+        this(UUID.randomUUID());
+    }
+    public Crime(UUID id) {
+        mId = id;
         mDate = new Date();
     }
 

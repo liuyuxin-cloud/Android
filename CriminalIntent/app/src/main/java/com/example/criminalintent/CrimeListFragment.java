@@ -2,7 +2,6 @@ package com.example.criminalintent;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.INotificationSideChannel;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -86,7 +85,7 @@ public class CrimeListFragment extends Fragment {
             subtitle = null;
         }
 
-        AppCompatActivity activity = (AppCompatActivity)getActivity();
+        AppCompatActzivity activity = getActivity();
         activity.getSupportActionBar().setSubtitle(subtitle);
     }
 

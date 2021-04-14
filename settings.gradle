@@ -1,2 +1,4 @@
+include ':myapplication'
+include ':room'
 include ':app'
 rootProject.name = "RetrofitTest"

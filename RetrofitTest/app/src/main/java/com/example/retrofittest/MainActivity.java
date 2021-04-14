@@ -1,10 +1,10 @@
 package com.example.retrofittest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListView;
 import android.widget.Toast;
 
 
@@ -18,14 +18,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {//用来显示github用户的开源仓库名称
     private static final String TAG = "tag" ;
-    public List<GitHubRepo> repo;
-    private ListView listView;
+    public List<GitHubRepoList> repo;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listview);
-        listView = (ListView)findViewById(R.id.listView);
+        setContentView(R.layout.activity);
 
         new Thread() {
             @Override
@@ -37,15 +36,15 @@ public class MainActivity extends AppCompatActivity {//用来显示github用户�
                 Retrofit retrofit = builder.build();
 
                 GitHubClient client = retrofit.create(GitHubClient.class);
-                Call<List<GitHubRepo>> call = client.reposForUser("liuyuxin-cloud");
+                Call<List<GitHubRepoList>> call = client.reposForUser("liuyuxin-cloud");
 
-                call.enqueue(new Callback<List<GitHubRepo>>() {
+                call.enqueue(new Callback<List<GitHubRepoList>>() {
 
                     @Override
-                    public void onResponse(Call<List<GitHubRepo>> call, Response<List<GitHubRepo>> response) {
-                        List<GitHubRepo> repos = response.body();
+                    public void onResponse(Call<List<GitHubRepoList>> call, Response<List<GitHubRepoList>> response) {
+                        List<GitHubRepoList> repos = response.body();
                         try{
-                        listView.setAdapter(new GitHubRepoAdapter(MainActivity.this,android.R.layout.simple_list_item_1,repos));
+                        mRecyclerView.setAdapter(new ReposListFragment.ReposAdapter());
                         }
                         catch (RuntimeException e) {
                             Log.d(TAG,"problem");
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity {//用来显示github用户�
                     }
 
                     @Override
-                    public void onFailure(Call<List<GitHubRepo>> call, Throwable t) {
+                    public void onFailure(Call<List<GitHubRepoList>> call, Throwable t) {
                         Toast.makeText(MainActivity.this, "error", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, Log.getStackTraceString(t));
                     }

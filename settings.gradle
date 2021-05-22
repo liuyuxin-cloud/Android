@@ -1,3 +1,5 @@
+include ':callbackdemo2'
+include ':callbackdemo'
 include ':myapplication'
 include ':room'
 include ':app'

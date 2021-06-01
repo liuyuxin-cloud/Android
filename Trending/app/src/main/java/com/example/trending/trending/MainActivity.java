@@ -6,15 +6,20 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool;
+import com.example.trending.API;
 import com.example.trending.R;
 import com.example.trending.base.BaseActivity;
 import com.example.trending.base.BasePresenter;
 
-public class MainActivity extends BaseActivity<MainPresenter>{
+import java.util.List;
+
+public class MainActivity extends BaseActivity<MainPresenter> implements API.VP {
 
     private MainPresenter mPresenter;
     private RecyclerView mRecyclerView;
     private Adapter adapter;
+    public static final String BaseURL = "https://api.github.com/search/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +42,6 @@ public class MainActivity extends BaseActivity<MainPresenter>{
 
         mRecyclerView = findViewById(R.id.re_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-
         mRecyclerView.setAdapter(adapter);
 
     }
@@ -64,6 +68,21 @@ public class MainActivity extends BaseActivity<MainPresenter>{
 
     @Override
     public void onClick(View v) {
+
+    }
+
+    @Override
+    public void refreshList() {
+        mPresenter.refreshList();
+    }
+
+    @Override
+    public void setData(List list) {
+
+    }
+
+    @Override
+    public void Fail() {
 
     }
 }

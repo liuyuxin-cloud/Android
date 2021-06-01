@@ -9,19 +9,44 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.trending.ItemsBean;
 import com.example.trending.R;
 
-public class Adapter extends RecyclerView.Adapter {
+import java.util.List;
 
+public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
+
+    private List<ItemsBean> mItemsBeans;
+
+    public Adapter(List<ItemsBean> itemsBeans){
+        this.mItemsBeans = itemsBeans;
+    }
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+
+        private final ImageView mView;
+        private final TextView mName;
+        private final TextView mRepo;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mView = itemView.findViewById(R.id.view);
+            mName = itemView.findViewById(R.id.user);
+            mRepo = itemView.findViewById(R.id.repo);
+        }
+    }
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Adapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull Adapter.MyViewHolder holder, int position) {
+
+        holder.mView.setImageURI(mItemsBeans.get(position).OwnerBean);
+        holder.mName.setText(mItemsBeans.get(position).getName());
+        holder.mRepo.setText(mItemsBeans.get(position).getDescription());
 
     }
 
@@ -30,17 +55,5 @@ public class Adapter extends RecyclerView.Adapter {
         return 0;
     }
 }
-class MyViewHolder extends RecyclerView.ViewHolder{
 
-    private ImageView mView;
-    private TextView mName;
-    private TextView mRepo;
-
-    public MyViewHolder(@NonNull View itemView) {
-        super(itemView);
-        mView = itemView.findViewById(R.id.view);
-        mName = itemView.findViewById(R.id.user);
-        mRepo = itemView.findViewById(R.id.repo);
-    }
-}
 

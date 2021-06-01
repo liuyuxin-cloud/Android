@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String BaseURL = "https ://trendings.herokuapp.com/";
-
     public P myPresenter;
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.trending.trending;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +45,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull Adapter.MyViewHolder holder, int position) {
 
-        holder.mView.setImageURI(mItemsBeans.get(position).OwnerBean);
-        holder.mName.setText(mItemsBeans.get(position).getName());
-        holder.mRepo.setText(mItemsBeans.get(position).getDescription());
+        holder.mView.setImageURI(Uri.parse(mItemsBeans.get(position).getAvatars().get(0)));
+        holder.mName.setText(mItemsBeans.get(position).getRepo());
+        if(mItemsBeans.get(position).getDesc() != null){
+            holder.mRepo.setText(mItemsBeans.get(position).getDesc());
+        }
 
     }
 

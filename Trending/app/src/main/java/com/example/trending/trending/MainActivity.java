@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.ArrayPool;
 import com.example.trending.API;
+import com.example.trending.ItemsBean;
 import com.example.trending.R;
 import com.example.trending.base.BaseActivity;
 import com.example.trending.base.BasePresenter;
@@ -16,9 +17,9 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements API.VP {
 
-    private MainPresenter mPresenter;
     private RecyclerView mRecyclerView;
     public static final String BaseURL = "https://trendings.herokuapp.com/";
+    private MainPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
         initListener();
         initView();
         initData();
-        myPresenter = getPresenterInstance();
-        myPresenter.bindView(this);
+        mPresenter = getPresenterInstance();
+        mPresenter.bindView(this);
     }
 
     @Override
@@ -41,8 +42,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
 
         mRecyclerView = findViewById(R.id.re_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        adapter = new Adapter()
-        mRecyclerView.setAdapter(adapter);
+
 
     }
 
@@ -58,7 +58,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
 
     @Override
     public MainPresenter getPresenterInstance() {
-        return mPresenter;
+        return new MainPresenter();
     }
 
     @Override
@@ -77,8 +77,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
     }
 
     @Override
-    public void setData(List list) {
-
+    public void setData(List<ItemsBean> list) {
+        Adapter adapter = new Adapter(list);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override

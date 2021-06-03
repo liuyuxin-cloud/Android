@@ -20,8 +20,8 @@ public interface API {
     }
 
 
-    @GET("/repositories")
-    Observable<List<ItemsBean>> getList(@Query("sort")String sort, @Query("q")String language);
+    @GET("/repo")
+    Observable<List<ItemsBean>> getList(@Query("lang")String language, @Query("since")String weekly);
 
 
 

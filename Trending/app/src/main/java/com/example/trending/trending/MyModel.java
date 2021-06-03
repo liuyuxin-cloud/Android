@@ -35,7 +35,7 @@ public class MyModel extends BaseModel<MainPresenter> implements API.M {
                 .build();
 
         API mApi = retrofit.create(API.class);
-        Observable<List<ItemsBean>> observable = mApi.getList("stars","java");
+        Observable<List<ItemsBean>> observable = mApi.getList("java","weekly");
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<List<ItemsBean>>() {

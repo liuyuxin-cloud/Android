@@ -18,8 +18,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
 
     private MainPresenter mPresenter;
     private RecyclerView mRecyclerView;
-    private Adapter adapter;
-    public static final String BaseURL = "https://api.github.com/search/";
+    public static final String BaseURL = "https://trendings.herokuapp.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +41,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
 
         mRecyclerView = findViewById(R.id.re_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        adapter = new Adapter()
         mRecyclerView.setAdapter(adapter);
 
     }

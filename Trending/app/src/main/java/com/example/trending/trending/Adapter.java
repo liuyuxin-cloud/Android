@@ -15,14 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.trending.ItemsBean;
 import com.example.trending.R;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import me.samlss.broccoli.Broccoli;
 import retrofit2.http.Url;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     private List<ItemsBean.Items> mItemsBeans;
     private int opened = -1;
+    private Map<View, Broccoli> mViewPlaceholderManager = new HashMap<>();
+    private Map<View, Runnable> mTaskManager = new HashMap<>();
 
     public Adapter(List<ItemsBean.Items> itemsBeans) {
         this.mItemsBeans = itemsBeans;
@@ -103,9 +108,35 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull Adapter.MyViewHolder holder, int position) {
 
-        holder.bindView(position, mItemsBeans.get(position));
+        BroccoliManager.initRecyclerView(holder.itemView,holder.mView,holder.mName,holder.mRepo);
+        //delay to show the data
+        Runnable task = mTaskManager.get(holder.itemView);
+        if (task == null) {
 
+            task = new Runnable() {
+                @Override
+                public void run() {
+                    //when you need to update data, you must to call the remove or the clear method.
+                    BroccoliManager.byItemViewClear(holder.itemView);
+
+                    if (mItemsBeans.isEmpty()) {
+                        return;
+                    }
+
+                   holder.bindView(position,mItemsBeans.get(position));
+                }
+            };
+            mTaskManager.put(holder.itemView, task);
+        } else {
+            holder.itemView.removeCallbacks(task);
+        }
+        holder.itemView.postDelayed(task, 1000);
+        holder.bindView(position,mItemsBeans.get(position));
     }
+        //holder.bindView(position, mItemsBeans.get(position));
+
+
+
 
     @Override
     public int getItemCount() {

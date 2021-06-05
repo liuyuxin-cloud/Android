@@ -41,7 +41,8 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layoutAnimation="@anim/loading">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/re_view"
             android:layout_width="match_parent"

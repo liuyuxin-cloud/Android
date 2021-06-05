@@ -3,6 +3,9 @@ package com.example.trending.trending;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,16 +46,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
     @Override
     public void initView() {
 
-        refreshList();
-
         mRecyclerView = findViewById(R.id.re_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
-
+        Animation animation = AnimationUtils.loadAnimation(
+                this, R.anim.list_anim);
+        LayoutAnimationController lac = new LayoutAnimationController(animation);
+        lac.setDelay(0.4f);  //设置动画间隔时间
+        lac.setOrder(LayoutAnimationController.ORDER_NORMAL); //设置列表的显示顺序
+        mRecyclerView.setLayoutAnimation(lac);
+        lac.start();//为ListView 添加动画
 
         mSwipeRefreshLayout = findViewById(R.id.refresh);
         mSwipeRefreshLayout.setRefreshing(true);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.gray,R.color.white,R.color.black);//设置下拉进度条颜色
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.gray, R.color.purple_200, R.color.black);//设置下拉进度条颜色
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

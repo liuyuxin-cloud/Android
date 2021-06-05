@@ -10,18 +10,17 @@ public interface API {
 
     public interface M {        //M层请求业务
         void request();
-
     }
     public interface VP{
         void refreshList();
-        void setData(List<ItemsBean> list);
+        void onSuccess(List<ItemsBean.Items> list);
+        void setData(List<ItemsBean.Items> list);
         void Fail();
-
     }
 
 
     @GET("/repo")
-    Observable<List<ItemsBean>> getList(@Query("lang")String language, @Query("since")String weekly);
+    Observable<ItemsBean<ItemsBean.Items>> getList(@Query("lang")String language, @Query("since")String weekly);
 
 
 

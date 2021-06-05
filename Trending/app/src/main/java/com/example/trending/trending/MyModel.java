@@ -5,6 +5,7 @@ import com.example.trending.API;
 import com.example.trending.ItemsBean;
 import com.example.trending.base.BaseModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -21,7 +22,8 @@ import static com.example.trending.trending.MainActivity.BaseURL;
 
 public class MyModel extends BaseModel<MainPresenter> implements API.M {
 
-    private List<ItemsBean> mList;
+    private List<ItemsBean.Items> mList = new ArrayList<>();
+
     public MyModel(MainPresenter mPresenter) {
         super(mPresenter);
     }
@@ -35,19 +37,20 @@ public class MyModel extends BaseModel<MainPresenter> implements API.M {
                 .build();
 
         API mApi = retrofit.create(API.class);
-        Observable<List<ItemsBean>> observable = mApi.getList("java","weekly");
-        observable.subscribeOn(Schedulers.io())
+        mApi.getList("java", "weekly").subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<ItemsBean>>() {
+                .subscribe(new Observer<ItemsBean<ItemsBean.Items>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(@NonNull List<ItemsBean> itemsBeans) {
-                        mList = itemsBeans;
-                        mPresenter.setData(mList);
+                    public void onNext(@NonNull ItemsBean<ItemsBean.Items> itemsItemsBean) {
+                        for (int i = 0; i < itemsItemsBean.getItems().size(); i++) {
+                            mList.add(itemsItemsBean.getItems().get(i));
+                        }
+                        mPresenter.onSuccess(mList);
                     }
 
                     @Override
@@ -57,10 +60,9 @@ public class MyModel extends BaseModel<MainPresenter> implements API.M {
 
                     @Override
                     public void onComplete() {
+                        mPresenter.setData(mList);
 
                     }
                 });
-
-
     }
 }

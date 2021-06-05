@@ -1,6 +1,7 @@
 package com.example.trending.trending;
 
 import com.example.trending.API;
+import com.example.trending.ItemsBean;
 import com.example.trending.base.BaseModel;
 import com.example.trending.base.BasePresenter;
 
@@ -23,6 +24,11 @@ public class MainPresenter extends BasePresenter<MyModel,MainActivity> implement
     @Override
     public void refreshList() {
         mModel.request();
+    }
+
+    @Override
+    public void onSuccess(List<ItemsBean.Items> list) {
+        mView.onSuccess(list);
     }
 
     @Override

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trending.ItemsBean;
 import com.example.trending.R;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +41,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final ImageView mView;
+        private final SimpleDraweeView mView;
         private final TextView mName;
         private final TextView mRepo;
         private final TextView mDes;
@@ -130,7 +131,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         } else {
             holder.itemView.removeCallbacks(task);
         }
-        holder.itemView.postDelayed(task, 1000);
+        holder.itemView.postDelayed(task, 500);
         holder.bindView(position,mItemsBeans.get(position));
     }
         //holder.bindView(position, mItemsBeans.get(position));

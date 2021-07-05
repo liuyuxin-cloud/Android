@@ -15,6 +15,7 @@ import com.example.trending.API;
 import com.example.trending.ItemsBean;
 import com.example.trending.R;
 import com.example.trending.base.BaseActivity;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.material.behavior.SwipeDismissBehavior;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
         initListener();
         initData();
         initView();
+        Fresco.initialize(this);
     }
 
     @Override

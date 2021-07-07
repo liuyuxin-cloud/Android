@@ -59,6 +59,8 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'me.samlss:broccoli:1.0.0'
     compile 'com.facebook.fresco:fresco:1.5.0'
+    compile 'ren.yale.android:retrofitcachelib:1.0.5'   //retrofit2+okhttp3+rxjava1
+    compile 'ren.yale.android:retrofitcachelibrx2:1.0.5'   //retrofit2+okhttp3+rxjava2
 
 
     implementation 'com.contrarywind:Android-PickerView:4.1.9'

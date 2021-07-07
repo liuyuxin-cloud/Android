@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,10 +20,15 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.google.android.material.behavior.SwipeDismissBehavior;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import ren.yale.android.retrofitcachelib.RetrofitCache;
+import retrofit2.Retrofit;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements API.VP {
 
     private RecyclerView mRecyclerView;
+    private Button mButton;
     public static final String BaseURL = "https://trendings.herokuapp.com/";
     private final MainPresenter mPresenter = new MainPresenter();
     Adapter adapter;
@@ -38,6 +44,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
         initData();
         initView();
         Fresco.initialize(this);
+        RetrofitCache.getInstance().init(this).setDefaultTimeUnit(TimeUnit.HOURS).setDefaultTime(2);
     }
 
     @Override
@@ -106,7 +113,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
 
     @Override
     public void onSuccess(List<ItemsBean.Items> list) {
+        setContentView(R.layout.activity_main);
+        initView();
         setData(list);
+        //initData();
+
     }
 
     @Override
@@ -119,6 +130,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
 
     @Override
     public void Fail() {
-
+        setContentView(R.layout.error_page);
+        mButton = findViewById(R.id.button);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshList();
+            }
+        });
     }
 }

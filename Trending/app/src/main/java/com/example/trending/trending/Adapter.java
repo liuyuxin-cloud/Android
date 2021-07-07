@@ -131,7 +131,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         } else {
             holder.itemView.removeCallbacks(task);
         }
-        holder.itemView.postDelayed(task, 500);
+        holder.itemView.postDelayed(task, 100);
         holder.bindView(position,mItemsBeans.get(position));
     }
         //holder.bindView(position, mItemsBeans.get(position));

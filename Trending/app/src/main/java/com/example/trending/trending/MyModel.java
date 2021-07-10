@@ -42,6 +42,7 @@ public class MyModel extends BaseModel<MainPresenter> implements API.M {
     
     @Override
     public void request() {
+        //retrofit缓存2小时数据
         okhttp3.OkHttpClient.Builder clientBuilder=new okhttp3.OkHttpClient.Builder();
         int cacheSize = 200 * 1024 * 1024;
         File cacheDirectory = new File(Environment.getExternalStorageDirectory(), "httpcache");

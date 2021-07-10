@@ -108,7 +108,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull Adapter.MyViewHolder holder, int position) {
-
+        //为item的每一项设置占位符
         BroccoliManager.initRecyclerView(holder.itemView,holder.mView,holder.mName,holder.mRepo);
         //delay to show the data
         Runnable task = mTaskManager.get(holder.itemView);
@@ -135,10 +135,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         holder.bindView(position,mItemsBeans.get(position));
     }
         //holder.bindView(position, mItemsBeans.get(position));
-
-
-
-
     @Override
     public int getItemCount() {
         return mItemsBeans.size() ;

@@ -22,8 +22,8 @@ public class MainPresenter extends BasePresenter<MyModel,MainActivity> implement
     }
 
     @Override
-    public void refreshList() {
-        mModel.request();
+    public void refreshList(String language) {
+        mModel.request(language);
     }
 
     @Override

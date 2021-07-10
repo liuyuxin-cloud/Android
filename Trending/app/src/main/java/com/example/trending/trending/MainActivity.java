@@ -1,12 +1,17 @@
 package com.example.trending.trending;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
+import android.widget.Toolbar;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +22,6 @@ import com.example.trending.ItemsBean;
 import com.example.trending.R;
 import com.example.trending.base.BaseActivity;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.google.android.material.behavior.SwipeDismissBehavior;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +38,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
     Adapter adapter;
     private List<ItemsBean.Items> mList;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private String language = "java";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +50,39 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
         initView();
         Fresco.initialize(this);
         RetrofitCache.getInstance().init(this).setDefaultTimeUnit(TimeUnit.HOURS).setDefaultTime(2);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.java:
+                language = "java";
+                refreshList(language);
+                return true;
+            case R.id.c:
+                language = "c";
+                refreshList(language);
+                return true;
+            case R.id.python:
+                language = "python";
+                refreshList(language);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
     protected void initData() {
-        refreshList();
+        refreshList(language);
     }
 
     @Override
@@ -72,7 +105,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshList();
+                refreshList(language);
             }
         });
 
@@ -107,8 +140,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
     }
 
     @Override
-    public void refreshList() {
-        mPresenter.refreshList();
+    public void refreshList(String language) {
+        mPresenter.refreshList(language);
     }
 
     @Override
@@ -135,7 +168,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements API.VP 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                refreshList();
+                refreshList(language);
             }
         });
     }

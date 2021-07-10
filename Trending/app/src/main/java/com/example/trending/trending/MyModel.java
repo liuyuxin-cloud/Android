@@ -41,7 +41,7 @@ public class MyModel extends BaseModel<MainPresenter> implements API.M {
     }
     
     @Override
-    public void request() {
+    public void request(String language) {
         //retrofit缓存2小时数据
         okhttp3.OkHttpClient.Builder clientBuilder=new okhttp3.OkHttpClient.Builder();
         int cacheSize = 200 * 1024 * 1024;
@@ -60,7 +60,7 @@ public class MyModel extends BaseModel<MainPresenter> implements API.M {
         RetrofitCache.getInstance().addRetrofit(retrofit);
 
         API mApi = retrofit.create(API.class);
-        mApi.getList("java", "weekly").subscribeOn(Schedulers.io())
+        mApi.getList(language, "weekly").subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ItemsBean<ItemsBean.Items>>() {
                     @Override
@@ -70,6 +70,7 @@ public class MyModel extends BaseModel<MainPresenter> implements API.M {
 
                     @Override
                     public void onNext(@NonNull ItemsBean<ItemsBean.Items> itemsItemsBean) {
+                        mList.clear();
                         for (int i = 0; i < itemsItemsBean.getItems().size(); i++) {
                             mList.add(itemsItemsBean.getItems().get(i));
                         }

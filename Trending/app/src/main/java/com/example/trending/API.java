@@ -10,10 +10,10 @@ import retrofit2.http.Query;
 public interface API {
 
     public interface M {        //M层请求业务
-        void request();
+        void request(String language);
     }
     public interface VP{
-        void refreshList();
+        void refreshList(String language);
         void onSuccess(List<ItemsBean.Items> list);
         void setData(List<ItemsBean.Items> list);
         void Fail();

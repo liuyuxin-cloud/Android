@@ -26,7 +26,6 @@ import retrofit2.http.Url;
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     private List<ItemsBean.Items> mItemsBeans;
-    private int opened = -1;
     private Map<View, Broccoli> mViewPlaceholderManager = new HashMap<>();
     private Map<View, Runnable> mTaskManager = new HashMap<>();
 
@@ -49,6 +48,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         private final TextView mForks;
         private ConstraintLayout mConcrete;
         private LinearLayout mSummary;
+        private int opened = -1;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -74,6 +74,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             mRepo.setText(items.getRepo_link());
             mStars.setText(String.valueOf(items.getStars()));
             mForks.setText(String.valueOf(items.getForks()));
+
             if (items.getDesc() != null) {
                 mDes.setText(items.getDesc());
             }

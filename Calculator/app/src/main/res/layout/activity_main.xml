@@ -7,18 +7,22 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="64dp"
-        android:layout_height="13dp"
-        android:text="TextView"
+        android:id="@+id/result"
+        android:layout_width="328dp"
+        android:layout_height="177dp"
+        android:layout_marginTop="60dp"
+        android:text=" "
+        android:textSize="50sp"
+        android:gravity="end|center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/add"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/add"
@@ -27,8 +31,8 @@
 
     <ImageButton
         android:id="@+id/dec"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/dec"
@@ -37,8 +41,8 @@
 
     <ImageButton
         android:id="@+id/equ"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:background="@mipmap/equ"
@@ -46,9 +50,9 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
-        android:id="@+id/nul"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:id="@+id/mul"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/mul"
@@ -57,29 +61,28 @@
 
     <ImageButton
         android:id="@+id/zero"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="106dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="20dp"
         android:background="@mipmap/zero"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/equ"
-        app:layout_constraintHorizontal_bias="0.968"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/back" />
 
     <ImageButton
         android:id="@+id/per"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/per"
         app:layout_constraintBottom_toTopOf="@+id/two"
-        tools:layout_editor_absoluteX="121dp" />
+        app:layout_constraintEnd_toStartOf="@+id/div" />
 
     <ImageButton
         android:id="@+id/two"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/twice"
@@ -88,18 +91,18 @@
 
     <ImageButton
         android:id="@+id/three"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/third"
         app:layout_constraintBottom_toTopOf="@+id/six"
-        app:layout_constraintEnd_toStartOf="@+id/nul" />
+        app:layout_constraintEnd_toStartOf="@+id/mul" />
 
     <ImageButton
         android:id="@+id/six"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/sixth"
@@ -108,26 +111,28 @@
 
     <ImageButton
         android:id="@+id/seven"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
         android:background="@mipmap/seventh"
-        app:layout_constraintEnd_toStartOf="@+id/eight"
-        tools:layout_editor_absoluteY="541dp" />
+        app:layout_constraintBottom_toTopOf="@+id/point"
+        app:layout_constraintEnd_toStartOf="@+id/eight" />
 
     <ImageButton
         android:id="@+id/nine"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
         android:background="@mipmap/ninth"
-        app:layout_constraintEnd_toStartOf="@+id/add"
-        tools:layout_editor_absoluteY="541dp" />
+        app:layout_constraintBottom_toTopOf="@+id/back"
+        app:layout_constraintEnd_toStartOf="@+id/add" />
 
     <ImageButton
         android:id="@+id/five"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/fifth"
@@ -136,8 +141,8 @@
 
     <ImageButton
         android:id="@+id/eight"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/eighth"
@@ -146,27 +151,27 @@
 
     <ImageButton
         android:id="@+id/ce"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
         android:background="@mipmap/c"
         app:layout_constraintBottom_toTopOf="@+id/one"
-        tools:layout_editor_absoluteX="26dp" />
+        app:layout_constraintEnd_toStartOf="@+id/per" />
 
     <ImageButton
         android:id="@+id/div"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="20dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/div"
-        app:layout_constraintBottom_toTopOf="@+id/nul"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/three"
+        app:layout_constraintEnd_toEndOf="@+id/three" />
 
     <ImageButton
         android:id="@+id/four"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/fourth"
@@ -175,11 +180,31 @@
 
     <ImageButton
         android:id="@+id/one"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:background="@mipmap/one"
         app:layout_constraintBottom_toTopOf="@+id/four"
         app:layout_constraintEnd_toStartOf="@+id/two" />
+
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp"
+        android:background="@mipmap/back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/equ" />
+
+    <ImageButton
+        android:id="@+id/point"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp"
+        android:background="@mipmap/point"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/zero" />
 </androidx.constraintlayout.widget.ConstraintLayout>

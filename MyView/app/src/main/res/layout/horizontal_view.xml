@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myview.MainActivity">
-    <com.example.myview.HorizontalView
+    <com.example.myview.HorizontalView1
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ListView
@@ -16,6 +16,6 @@
             android:id="@+id/lv_two"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></ListView>
-    </com.example.myview.HorizontalView>
+    </com.example.myview.HorizontalView1>
 
 </RelativeLayout>

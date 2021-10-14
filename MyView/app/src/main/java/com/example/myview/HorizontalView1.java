@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Scroller;
 
-public class HorizontalView extends ViewGroup {
+public class HorizontalView1 extends ViewGroup {
 
     private int lastInterceptX, lastInterceptY;
     private int lastX, lastY;
@@ -24,17 +24,17 @@ public class HorizontalView extends ViewGroup {
         tracker = VelocityTracker.obtain();
     }
 
-    public HorizontalView(Context context) {
+    public HorizontalView1(Context context) {
         super(context);
         init();
     }
 
-    public HorizontalView(Context context, AttributeSet attrs) {
+    public HorizontalView1(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public HorizontalView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public HorizontalView1(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -86,6 +86,15 @@ public class HorizontalView extends ViewGroup {
             }
         }
     }
+
+
+
+
+
+
+
+
+
     //处理滑动冲突
     @Override
     public boolean onInterceptTouchEvent (MotionEvent event) {

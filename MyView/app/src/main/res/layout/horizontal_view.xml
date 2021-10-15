@@ -6,16 +6,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.myview.MainActivity">
     <com.example.myview.HorizontalView1
+        android:id="@+id/hv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ListView
+        <com.example.myview.ListViewEx
             android:id="@+id/lv_one"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
-        <ListView
+            android:layout_height="match_parent"></com.example.myview.ListViewEx>
+        <com.example.myview.ListViewEx
             android:id="@+id/lv_two"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
+            android:layout_height="match_parent"></com.example.myview.ListViewEx>
     </com.example.myview.HorizontalView1>
 
 </RelativeLayout>

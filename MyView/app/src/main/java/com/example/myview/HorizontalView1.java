@@ -12,8 +12,8 @@ import android.widget.Scroller;
 
 public class HorizontalView1 extends ViewGroup {
 
-    private int lastInterceptX, lastInterceptY;
     private int lastX, lastY;
+    private int mLastXIntercept = 0, mLastYIntercept = 0;
     int currentIndex = 0;
     int childWidth = 0;
     private Scroller scroller;
@@ -87,49 +87,22 @@ public class HorizontalView1 extends ViewGroup {
         }
     }
 
-
-
-
-
-
-
-
-
     //处理滑动冲突
     @Override
     public boolean onInterceptTouchEvent (MotionEvent event) {
-        boolean intercept = false;
         int x = (int) event.getX();
         int y = (int) event.getY();
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                intercept = false;
-                Log.d("this","false");
-                if(!scroller.isFinished()) {
-                    scroller.abortAnimation();
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                int deltaX = x - lastInterceptX;
-                int deltaY = y - lastInterceptY;
-                //viewGroup拦截水平滑动
-                if(Math.abs(deltaX) - Math.abs(deltaY) > 0){
-                    intercept = true;
-                    Log.d("this","true");
-                }else{
-                    intercept = false;
-                    Log.d("this","false");
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                intercept = false;
-                break;
+        if(event.getAction() == MotionEvent.ACTION_DOWN){
+            lastX = x;
+            lastY = y;
+            if(!scroller.isFinished()){
+                scroller.abortAnimation();
+                return true;
+            }
+            return false;
+        }else{
+            return true;
         }
-        lastX = x;
-        lastY = y;
-        lastInterceptX = x;
-        lastInterceptY = y;
-        return intercept;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -138,6 +111,7 @@ public class HorizontalView1 extends ViewGroup {
         tracker.addMovement(event);
         int x = (int) event.getX();
         int y = (int) event.getY();
+        childWidth = getChildAt(0).getWidth();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if(!scroller.isFinished()){

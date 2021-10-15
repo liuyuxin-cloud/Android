@@ -97,7 +97,7 @@ public class HorizontalView extends ViewGroup {
                 intercept = false;
                 Log.d("this","false");
                 if(!scroller.isFinished()) {
-                    scroller.abortAnimation();
+                    scroller.abortAnimation();      //停下滑动
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -129,6 +129,7 @@ public class HorizontalView extends ViewGroup {
         tracker.addMovement(event);
         int x = (int) event.getX();
         int y = (int) event.getY();
+        childWidth = getChildAt(0).getWidth();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if(!scroller.isFinished()){
@@ -160,7 +161,6 @@ public class HorizontalView extends ViewGroup {
                 }
                 currentIndex = currentIndex < 0 ? 0 : Math.min(currentIndex, getChildCount()
                         - 1);
-                childWidth = getChildAt(0).getWidth();
                 smoothScrollTo(currentIndex * childWidth, 0);
                 tracker.clear(); //重置速度计算器
                 break;

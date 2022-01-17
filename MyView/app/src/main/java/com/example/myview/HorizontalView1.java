@@ -19,7 +19,7 @@ public class HorizontalView1 extends ViewGroup {
     private Scroller scroller;
     private VelocityTracker tracker;
 
-    public void init(){
+       public void init(){
         scroller = new Scroller(getContext());
         tracker = VelocityTracker.obtain();
     }

@@ -23,6 +23,4 @@ public interface API {
     @GET("/repo")
     Observable<ItemsBean<ItemsBean.Items>> getList(@Query("lang")String language, @Query("since")String weekly);
 
-
-
 }

@@ -51,8 +51,4 @@ public class Dialog extends android.app.Dialog {
         this.onEnsureListener = onEnsureListener;
     }
 
-    public void setTextView(String msg) {
-
-    }
-
 }

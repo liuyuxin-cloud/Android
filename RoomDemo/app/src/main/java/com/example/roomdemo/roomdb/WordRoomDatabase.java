@@ -43,20 +43,20 @@ public abstract class WordRoomDatabase extends RoomDatabase {
         private final WordDao mDao;
         String[] words = {"dolphin", "crocodile", "cobra"};
 
-        PopulateDbAsync(WordRoomDatabase db){
+        PopulateDbAsync(@NonNull WordRoomDatabase db){
             mDao = db.wordDao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             mDao.deleteALl();
-
-            for(int i = 0; i < words.length; i++){
-                Word word = new Word(words[i]);
-                mDao.insert(word);
+            if(mDao.getAnyWord().length < 1){
+                for (String s : words) {
+                    Word word = new Word(s);
+                    mDao.insert(word);
+                }
             }
             return null;
         }
     }
-
 }

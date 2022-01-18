@@ -20,6 +20,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,7 @@ import com.example.roomdemo.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -62,6 +64,23 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                Word myWord = adapter.getWordAtPosition(position);
+                Toast.makeText(MainActivity.this, "Deleting " + myWord.getWord(), Toast.LENGTH_SHORT).show();
+
+                mWordViewModel.deleteWord(myWord);
+            }
+        });
+        helper.attachToRecyclerView(recyclerView);
+
         mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
         mWordViewModel.getAllWords().observe(this, new Observer<List<Word>>() {
             @Override
@@ -86,7 +105,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.clear_data) {
+            Toast.makeText(this, "Clearing the data...", Toast.LENGTH_SHORT).show();
+            mWordViewModel.deleteAll();
             return true;
         }
 
